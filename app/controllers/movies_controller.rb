@@ -15,6 +15,16 @@ class MoviesController < ApplicationController
       @ratings_to_show =  @all_ratings
     end 
     @movies = Movie.with_ratings(@ratings_to_show)
+    @for_title = ""
+    if params[:sort] == "title"
+      @for_title = "hilite bg-warning"
+    end
+    @for_release = ""
+    if params[:sort] == "release_date"
+      @for_release = "hilite bg-warning"
+    end
+    @movies = @movies.order(params[:sort]) if params[:sort] != ''
+  
       
       
   end
