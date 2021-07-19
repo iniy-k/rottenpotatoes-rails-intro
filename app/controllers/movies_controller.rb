@@ -11,6 +11,14 @@ class MoviesController < ApplicationController
     if params[:ratings]
       @ratings_to_show = params[:ratings].keys
       session[:ratings] = @ratings_to_show
+    elsif session[:rating]
+      @rating_hash = Hash[@ratings_to_show.collect { |item| [item, 1] } ]
+      if params[:sort] 
+        redirect_to movies_path(:rating => @rating_hash, :sort => params[:sort])
+      else
+        redirect_to movies_path(:rating => @rating_hash)
+      end
+      
     else
       @ratings_to_show =  @all_ratings
     end 
