@@ -10,7 +10,8 @@ class Movie < ActiveRecord::Base
      if ratings_list.nil?
        return Movie.all
      else
-       return Movie.where(:rating => ratings_list)
+       ratings_list.map!(&:upcase)
+       return Movie.where(rating: ratings_list)
      end
   end
 end
